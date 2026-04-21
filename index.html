@@ -638,12 +638,19 @@
       });
       const sheet=document.createElement('div');sheet.className='compare-sheet';
       [['(a) Which has more?','How many more?'],['(b) Which has fewer?','How many fewer?']].forEach((pair,rowIndex)=>{
-        const row=document.createElement('div');row.style.display='grid';row.style.gridTemplateColumns='minmax(0,1fr) auto minmax(0,1fr) auto';row.style.columnGap='14px';row.style.rowGap='10px';row.style.alignItems='center';row.style.justifyContent='center';row.style.width='100%';
+        const row=document.createElement('div');row.style.display='flex';row.style.flexWrap='wrap';row.style.justifyContent='center';row.style.alignItems='center';row.style.columnGap='54px';row.style.rowGap='12px';row.style.width='100%';
+
+        const leftGroup=document.createElement('div');leftGroup.style.display='flex';leftGroup.style.alignItems='center';leftGroup.style.gap='14px';
         const left=document.createElement('div');left.className='work-label';left.textContent=pair[0];left.style.textAlign='right';
         const mid=document.createElement('div');mid.className='blank-chip';mid.textContent=state.selectedAnswer[rowIndex*2]??'____';
+        leftGroup.appendChild(left);leftGroup.appendChild(mid);
+
+        const rightGroup=document.createElement('div');rightGroup.style.display='flex';rightGroup.style.alignItems='center';rightGroup.style.gap='14px';
         const rightLabel=document.createElement('div');rightLabel.className='work-label';rightLabel.textContent=pair[1];rightLabel.style.textAlign='right';
         const rightBlank=document.createElement('div');rightBlank.className='blank-chip';rightBlank.textContent=state.selectedAnswer[rowIndex*2+1]??'__';
-        row.appendChild(left);row.appendChild(mid);row.appendChild(rightLabel);row.appendChild(rightBlank);sheet.appendChild(row);
+        rightGroup.appendChild(rightLabel);rightGroup.appendChild(rightBlank);
+
+        row.appendChild(leftGroup);row.appendChild(rightGroup);sheet.appendChild(row);
       });
       wrap.appendChild(board);wrap.appendChild(sheet);return wrap;
     }
